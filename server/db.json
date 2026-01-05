@@ -26,6 +26,18 @@
       "content": "Alles wird gut!",
       "created_at": "2025-12-27 14:31:29.421422",
       "updated_at": "2025-12-27 14:31:29.421422"
+    },
+    {
+      "id": "ec55eb70-ea5c-11f0-9963-efcbacd46b58",
+      "content": "Only a test",
+      "created_at": "2025-12-27 14:35:02.723199",
+      "updated_at": "2025-12-27 14:35:02.723199"
+    },
+    {
+      "id": "ad7f7710-ea5f-11f0-9963-efcbacd46b58",
+      "content": "Saturday night!",
+      "created_at": "2025-12-27 14:35:02.723199",
+      "updated_at": "2025-12-27 14:35:02.723199"
     }
   ]
 }
