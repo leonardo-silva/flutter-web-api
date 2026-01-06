@@ -8,9 +8,9 @@ import 'screens/home_screen/home_screen.dart';
 void main() {
   runApp(const MyApp());
 
-  JournalService service = JournalService();
+  //JournalService service = JournalService();
   //service.register(Journal.empty());
-  service.getAll();
+  //service.getAll();
 }
 
 class MyApp extends StatelessWidget {
