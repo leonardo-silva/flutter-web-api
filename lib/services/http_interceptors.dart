@@ -7,9 +7,9 @@ class HttpInterceptors extends InterceptorContract {
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
-    print('----- Request -----');
-    print(request.toString());
-    print(request.headers.toString());
+    log('----- Request -----');
+    log(request.toString());
+    log(request.headers.toString());
     return request;
   }
 
