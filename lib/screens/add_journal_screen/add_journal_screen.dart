@@ -12,6 +12,9 @@ class AddJournalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Updates the text field with journal content, allowing to update it
+    _contentController.text = journal.content;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
