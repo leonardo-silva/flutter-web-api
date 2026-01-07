@@ -5,7 +5,7 @@ import 'package:flutter_webapi_first_course/services/journal_service.dart';
 import '../../models/journal.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

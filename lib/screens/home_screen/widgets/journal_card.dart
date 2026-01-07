@@ -8,11 +8,10 @@ class JournalCard extends StatelessWidget {
   final DateTime showedDate;
   final Function refreshFunction;
   const JournalCard(
-      {Key? key,
+      {super.key,
       this.journal,
       required this.showedDate,
-      required this.refreshFunction})
-      : super(key: key);
+      required this.refreshFunction});
 
   @override
   Widget build(BuildContext context) {
