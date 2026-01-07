@@ -111,8 +111,11 @@ class JournalCard extends StatelessWidget {
             createdAt: showedDate,
             updatedAt: showedDate);
 
-    Navigator.pushNamed(context, 'add-journal', arguments: innerJournal)
-        .then((value) {
+    Map<String, dynamic> map = {};
+    map["journal"] = innerJournal;
+    map["is_editing"] = (journal != null);
+
+    Navigator.pushNamed(context, 'add-journal', arguments: map).then((value) {
       refreshFunction();
       if (context.mounted) {
         if (value != null) {

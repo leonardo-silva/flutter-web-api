@@ -26,6 +26,16 @@ class JournalService {
     return (response.statusCode == 201);
   }
 
+  Future<bool> edit(String id, Journal journal) async {
+    String jsonJournal = json.encode(journal.toMap());
+    http.Response response = await client.put(
+      Uri.parse("${getUrl()}$id"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonJournal,
+    );
+    return (response.statusCode == 200);
+  }
+
   Future<List<Journal>> getAll() async {
     http.Response response = await client.get(Uri.parse(getUrl()));
 
