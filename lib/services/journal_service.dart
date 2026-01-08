@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/intercepted_client.dart';
 
 class JournalService {
-  static const String url = "http://192.168.1.6:3000/";
+  static const String url = "http://192.168.1.4:3000/";
   static const String resource = "journals/";
 
   http.Client client =
@@ -51,5 +51,10 @@ class JournalService {
     }
 
     return list;
+  }
+
+  Future<bool> delete(String id) async {
+    http.Response response = await http.delete(Uri.parse("${getUrl()}$id"));
+    return (response.statusCode == 200);
   }
 }
