@@ -1,5 +1,11 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "admin@admin.com",
+      "password": "$2a$10$BwhlkT7cUbv5o/ULXdwzp.hoHJ3LCRiSdgmycDw2tcp1E3yLYaSEm",
+      "id": 1
+    }
+  ],
   "learnhttp": {
     "content": "Hello World!2"
   },
