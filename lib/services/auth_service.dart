@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_webapi_first_course/services/http_interceptors.dart';
@@ -11,14 +12,28 @@ class AuthService {
   http.Client client =
       InterceptedClient.build(interceptors: [HttpInterceptors()]);
 
-  login({required String email, required String password}) async {
+  Future<bool> login({required String email, required String password}) async {
     http.Response response = await client.post(Uri.parse('${url}login'),
         body: {'email': email, 'password': password});
 
     if (response.statusCode != 200) {
+      String content = json.decode(response.body);
+      switch (content) {
+        case "Cannot find user":
+          throw UserNotFoundException();
+        //break;
+        default:
+      }
       throw HttpException(response.body);
     }
+
+    return true;
   }
 
-  register() {}
+  register({required String email, required String password}) async {
+    http.Response response = await client.post(Uri.parse('${url}register'),
+        body: {'email': email, 'password': password});
+  }
 }
+
+class UserNotFoundException implements Exception {}

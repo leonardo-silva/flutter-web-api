@@ -4,6 +4,11 @@
       "email": "admin@admin.com",
       "password": "$2a$10$BwhlkT7cUbv5o/ULXdwzp.hoHJ3LCRiSdgmycDw2tcp1E3yLYaSEm",
       "id": 1
+    },
+    {
+      "email": "leosilva@test.com",
+      "password": "$2a$10$rpe7PIssH0BevvZXYPrK1.BQUS9k8VTkkq1EtwgcCWR0Y./oJ/6MC",
+      "id": 2
     }
   ],
   "learnhttp": {

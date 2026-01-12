@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_first_course/screens/common/confirmation_dialog.dart';
 import 'package:flutter_webapi_first_course/services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        login();
+                        login(context);
                       },
                       child: const Text("Continuar")),
                 ],
@@ -67,10 +68,25 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void login() {
+  void login(BuildContext context) async {
     String email = _emailController.text;
     String password = _passController.text;
 
-    service.login(email: email, password: password);
+    try {
+      print('Login called!');
+      bool result = await service.login(email: email, password: password);
+    } on UserNotFoundException {
+      if (context.mounted) {
+        showConfirmationDialog(context,
+                content:
+                    "Would you like to sign-up using $email and the informed password?",
+                affirmativeOption: "SIGN-UP")
+            .then((value) {
+          if (value != null && value) {
+            service.register(email: email, password: password);
+          }
+        });
+      }
+    }
   }
 }
