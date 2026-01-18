@@ -19,43 +19,50 @@
       "id": "f20518c0-ea57-11f0-abfa-9133a63f04f3",
       "content": "",
       "created_at": "2026-01-05 13:59:49.198040",
-      "updated_at": "2026-01-05 13:59:49.198041"
+      "updated_at": "2026-01-05 13:59:49.198041",
+      "userId": 1
     },
     {
       "id": "7078e4e0-ea5b-11f0-950e-f5cc7b86a019",
       "content": "",
       "created_at": "2025-12-28 14:24:46.726389",
-      "updated_at": "2025-12-28 14:24:46.726389"
+      "updated_at": "2025-12-28 14:24:46.726389",
+      "userId": 1
     },
     {
       "id": "8ac70e30-ea5b-11f0-950e-f5cc7b86a019",
       "content": "",
       "created_at": "2025-12-27 14:24:46.726389",
-      "updated_at": "2025-12-27 14:24:46.726389"
+      "updated_at": "2025-12-27 14:24:46.726389",
+      "userId": 1
     },
     {
       "id": "6192b220-ea5c-11f0-8643-a53706aeaa70",
       "content": "Alles wird gut!",
       "created_at": "2025-12-27 14:31:29.421422",
-      "updated_at": "2025-12-27 14:31:29.421422"
+      "updated_at": "2025-12-27 14:31:29.421422",
+      "userId": 2
     },
     {
       "id": "ec55eb70-ea5c-11f0-9963-efcbacd46b58",
       "content": "Only a test",
       "created_at": "2025-12-27 14:35:02.723199",
-      "updated_at": "2025-12-27 14:35:02.723199"
+      "updated_at": "2025-12-27 14:35:02.723199",
+      "userId": 2
     },
     {
       "id": "ad7f7710-ea5f-11f0-9963-efcbacd46b58",
       "content": "Saturday night!",
       "created_at": "2025-12-27 14:35:02.723199",
-      "updated_at": "2025-12-27 14:35:02.723199"
+      "updated_at": "2025-12-27 14:35:02.723199",
+      "userId": 2
     },
     {
       "id": "f5f0adf0-eb1f-11f0-9159-814581db440a",
       "content": "Well, it is a normal workday!!",
       "created_at": "2025-12-30 13:34:43.313387",
-      "updated_at": "2025-12-30 13:34:43.313387"
+      "updated_at": "2025-12-30 13:34:43.313387",
+      "userId": 1
     }
   ]
 }

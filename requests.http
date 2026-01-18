@@ -1,5 +1,5 @@
 ### Login
-POST http://192.168.1.4:3000/auth/login
+POST http://192.168.1.4:3000/login
 Content-Type: application/json
 
 {
@@ -18,7 +18,8 @@ Content-Type: application/json
 }
 
 
-### getAll journals
-GET http://192.168.1.4:3000/journals
+### getAll journals for a userId
+GET http://192.168.1.4:3000/users/1/journals
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2ODc2MTg4NSwiZXhwIjoxNzY4NzY1NDg1LCJzdWIiOiIxIn0.qpk9oiR5kr-IwETgW37QXtKZ_BUl67zvNsVkD83M-5U
 Content-Type: application/json
 
