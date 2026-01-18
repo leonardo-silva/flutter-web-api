@@ -33,7 +33,7 @@ class AuthService {
     return true;
   }
 
-  Future<void> register(
+  Future<bool> register(
       {required String email, required String password}) async {
     http.Response response = await client.post(Uri.parse('${url}register'),
         body: {'email': email, 'password': password});
@@ -43,9 +43,11 @@ class AuthService {
     }
 
     saveUserInfo(response.body);
+
+    return true;
   }
 
-  saveUserInfo(String body) async {
+  Future<void> saveUserInfo(String body) async {
     Map<String, dynamic> map = json.decode(body);
 
     String token = map['accessToken'];

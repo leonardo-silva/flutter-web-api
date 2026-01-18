@@ -73,8 +73,12 @@ class LoginScreen extends StatelessWidget {
     String password = _passController.text;
 
     try {
-      print('Login called!');
-      bool result = await service.login(email: email, password: password);
+      //print('Login called!');
+      await service.login(email: email, password: password).then((resultLogin) {
+        if (resultLogin && context.mounted) {
+          Navigator.pushReplacementNamed(context, 'home');
+        }
+      });
     } on UserNotFoundException {
       if (context.mounted) {
         showConfirmationDialog(context,
@@ -83,7 +87,13 @@ class LoginScreen extends StatelessWidget {
                 affirmativeOption: "SIGN-UP")
             .then((value) {
           if (value != null && value) {
-            service.register(email: email, password: password);
+            service
+                .register(email: email, password: password)
+                .then((resultRegister) {
+              if (resultRegister && context.mounted) {
+                Navigator.pushReplacementNamed(context, 'home');
+              }
+            });
           }
         });
       }
