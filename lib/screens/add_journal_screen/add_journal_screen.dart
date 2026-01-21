@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/helpers/weekday.dart';
 import 'package:flutter_webapi_first_course/models/journal.dart';
 import 'package:flutter_webapi_first_course/services/journal_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddJournalScreen extends StatelessWidget {
   final Journal journal;
@@ -43,22 +44,28 @@ class AddJournalScreen extends StatelessWidget {
   }
 
   void registerJournal(BuildContext context) {
-    String newContent = _contentController.text;
-    journal.content = newContent;
+    // The use of await-async is not recommended here because of the parameter context, to avoid asynchronous gaps.
+    SharedPreferences.getInstance().then((prefs) {
+      String? token = prefs.getString('accessToken');
+      if (token != null) {
+        String newContent = _contentController.text;
+        journal.content = newContent;
 
-    JournalService service = JournalService();
-    if (isEditing) {
-      service.edit(journal.id, journal).then((value) {
-        if (context.mounted) {
-          Navigator.pop(context, value); // Return to the caller screen
+        JournalService service = JournalService();
+        if (isEditing) {
+          service.edit(journal.id, journal, token).then((value) {
+            if (context.mounted) {
+              Navigator.pop(context, value); // Return to the caller screen
+            }
+          });
+        } else {
+          service.register(journal, token).then((value) {
+            if (context.mounted) {
+              Navigator.pop(context, value); // Return to the caller screen
+            }
+          });
         }
-      });
-    } else {
-      service.register(journal).then((value) {
-        if (context.mounted) {
-          Navigator.pop(context, value); // Return to the caller screen
-        }
-      });
-    }
+      }
+    });
   }
 }

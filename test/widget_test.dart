@@ -9,11 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_webapi_first_course/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future<bool> verifyToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('accessToken');
+  return (token != null);
+}
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    bool isLogged = await verifyToken();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(isLogged: isLogged));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

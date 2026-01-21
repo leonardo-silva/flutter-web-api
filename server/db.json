@@ -17,9 +17,9 @@
   "journals": [
     {
       "id": "f20518c0-ea57-11f0-abfa-9133a63f04f3",
-      "content": "",
-      "created_at": "2026-01-05 13:59:49.198040",
-      "updated_at": "2026-01-05 13:59:49.198041",
+      "content": "Test. Ok now using user is!",
+      "created_at": "2026-01-15 13:59:49.198040",
+      "updated_at": "2026-01-15 13:59:49.198041",
       "userId": 1
     },
     {
@@ -62,6 +62,13 @@
       "content": "Well, it is a normal workday!!",
       "created_at": "2026-01-10 13:34:43.313387",
       "updated_at": "2026-01-10 13:34:43.313387",
+      "userId": 1
+    },
+    {
+      "id": "253af790-f6cf-11f0-8259-ff802d3f54ba",
+      "content": "Jeremy spoke in class today!",
+      "created_at": "2026-01-14 10:41:35.673094",
+      "updated_at": "2026-01-14 10:41:35.673094",
       "userId": 1
     }
   ]

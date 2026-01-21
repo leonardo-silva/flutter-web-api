@@ -16,6 +16,7 @@ void main() async {
 
 Future<bool> verifyToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //prefs.remove('accessToken');
   String? token = prefs.getString('accessToken');
   return (token != null);
 }

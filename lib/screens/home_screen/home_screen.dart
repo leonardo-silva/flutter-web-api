@@ -26,6 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   JournalService service = JournalService();
 
+  // In this case we need to use int? because the userId can be null for a few moments, until the SharedPreferences have the information
+  int? userId;
+
   @override
   void initState() {
     refresh();
@@ -48,15 +51,20 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.refresh))
         ],
       ),
-      body: ListView(
-        controller: _listScrollController,
-        children: generateListJournalCards(
-          windowPage: windowPage,
-          currentDay: currentDay,
-          database: database,
-          refreshFunction: refresh,
-        ),
-      ),
+      body: (userId != null)
+          ? ListView(
+              controller: _listScrollController,
+              children: generateListJournalCards(
+                windowPage: windowPage,
+                currentDay: currentDay,
+                database: database,
+                refreshFunction: refresh,
+                userId: userId!,
+              ),
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 
@@ -64,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPreferences.getInstance().then((prefs) {
       String? token = prefs.getString('accessToken');
       int? id = prefs.getInt('id');
+
       if (token != null && id != null) {
+        setState(() {
+          userId = id;
+        });
         service
             .getAll(id: id.toString(), token: token)
             .then((List<Journal> listJournal) {
