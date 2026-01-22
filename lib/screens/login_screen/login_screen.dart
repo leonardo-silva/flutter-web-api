@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/screens/common/confirmation_dialog.dart';
+import 'package:flutter_webapi_first_course/screens/common/exception_dialog.dart';
 import 'package:flutter_webapi_first_course/services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -68,35 +71,43 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void login(BuildContext context) async {
+  void login(BuildContext context) {
     String email = _emailController.text;
     String password = _passController.text;
 
-    try {
-      //print('Login called!');
-      await service.login(email: email, password: password).then((resultLogin) {
-        if (resultLogin && context.mounted) {
-          Navigator.pushReplacementNamed(context, 'home');
-        }
-      });
-    } on UserNotFoundException {
-      if (context.mounted) {
-        showConfirmationDialog(context,
-                content:
-                    "Would you like to sign-up using $email and the informed password?",
-                affirmativeOption: "SIGN-UP")
-            .then((value) {
-          if (value != null && value) {
-            service
-                .register(email: email, password: password)
-                .then((resultRegister) {
-              if (resultRegister && context.mounted) {
-                Navigator.pushReplacementNamed(context, 'home');
-              }
-            });
-          }
-        });
+    service.login(email: email, password: password).then((resultLogin) {
+      if (resultLogin && context.mounted) {
+        Navigator.pushReplacementNamed(context, 'home');
       }
-    }
+    }).catchError(
+      (error) {
+        if (context.mounted) {
+          HttpException innerError = error;
+          showExceptionDialog(context, content: innerError.message);
+        }
+      },
+      test: (error) => error is HttpException,
+    ).catchError(
+      (error) {
+        if (context.mounted) {
+          showConfirmationDialog(context,
+                  content:
+                      "Would you like to sign-up using $email and the informed password?",
+                  affirmativeOption: "SIGN-UP")
+              .then((value) {
+            if (value != null && value) {
+              service
+                  .register(email: email, password: password)
+                  .then((resultRegister) {
+                if (resultRegister && context.mounted) {
+                  Navigator.pushReplacementNamed(context, 'home');
+                }
+              });
+            }
+          });
+        }
+      },
+      test: (error) => error is UserNotFoundException,
+    );
   }
 }
