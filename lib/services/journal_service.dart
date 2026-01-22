@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_webapi_first_course/models/journal.dart';
 import 'package:flutter_webapi_first_course/services/http_interceptors.dart';
@@ -26,7 +27,16 @@ class JournalService {
       },
       body: jsonJournal,
     );
-    return (response.statusCode == 201);
+
+    if (response.statusCode != 201) {
+      if (json.decode(response.body) == 'jwt expired') {
+        throw TokenNotValidException();
+      }
+
+      throw HttpException(response.body);
+    }
+
+    return true;
   }
 
   Future<bool> edit(String id, Journal journal, String token) async {
@@ -39,7 +49,16 @@ class JournalService {
       },
       body: jsonJournal,
     );
-    return (response.statusCode == 200);
+
+    if (response.statusCode != 200) {
+      if (json.decode(response.body) == 'jwt expired') {
+        throw TokenNotValidException();
+      }
+
+      throw HttpException(response.body);
+    }
+
+    return true;
   }
 
   Future<List<Journal>> getAll(
@@ -49,7 +68,11 @@ class JournalService {
         headers: {'Authorization': 'Bearer $token'});
 
     if (response.statusCode != 200) {
-      throw Exception();
+      if (json.decode(response.body) == 'jwt expired') {
+        throw TokenNotValidException();
+      }
+
+      throw HttpException(response.body);
     }
 
     List<Journal> list = [];
@@ -65,6 +88,17 @@ class JournalService {
   Future<bool> delete(String id, String token) async {
     http.Response response = await http.delete(Uri.parse("${getUrl()}$id"),
         headers: {'Authorization': 'Bearer $token'});
-    return (response.statusCode == 200);
+
+    if (response.statusCode != 200) {
+      if (json.decode(response.body) == 'jwt expired') {
+        throw TokenNotValidException();
+      }
+
+      throw HttpException(response.body);
+    }
+
+    return true;
   }
 }
+
+class TokenNotValidException implements Exception {}
