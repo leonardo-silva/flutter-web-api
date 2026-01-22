@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_first_course/helpers/logout.dart';
+import 'package:flutter_webapi_first_course/screens/common/exception_dialog.dart';
 import 'package:flutter_webapi_first_course/screens/home_screen/widgets/home_screen_list.dart';
 import 'package:flutter_webapi_first_course/services/journal_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             ListTile(
               onTap: () {
-                logout();
+                logout(context);
               },
               title: Text('Log out'),
               leading: Icon(Icons.logout),
@@ -83,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void refresh() async {
+  void refresh() {
+    final currentContext = context; // Capture context here!
+
     SharedPreferences.getInstance().then((prefs) {
       String? token = prefs.getString('accessToken');
       int? id = prefs.getInt('id');
@@ -103,20 +109,26 @@ class _HomeScreenState extends State<HomeScreen> {
               database[journal.id] = journal;
             }
           });
-        });
+        }).catchError(
+          (error) {
+            if (currentContext.mounted) {
+              logout(currentContext);
+            }
+          },
+          test: (error) => error is TokenNotValidException,
+        ).catchError(
+          (error) {
+            if (currentContext.mounted) {
+              HttpException innerError = error;
+              showExceptionDialog(currentContext, content: innerError.message);
+            }
+          },
+          test: (error) => error is HttpException,
+        );
       } else {
-        if (Navigator.of(context).mounted) {
-          Navigator.pushReplacementNamed(context, 'login');
+        if (currentContext.mounted) {
+          Navigator.pushReplacementNamed(currentContext, 'login');
         }
-      }
-    });
-  }
-
-  void logout() {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.clear();
-      if (Navigator.of(context).mounted) {
-        Navigator.pushReplacementNamed(context, 'login');
       }
     });
   }

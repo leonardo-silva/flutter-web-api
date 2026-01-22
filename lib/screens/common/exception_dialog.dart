@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> showExceptionDialog(
+dynamic showExceptionDialog(
   BuildContext context, {
   required String content,
   String title = "A problem occurred.",
