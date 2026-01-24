@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_first_course/screens/common/confirmation_dialog.dart';
 import 'package:flutter_webapi_first_course/screens/common/exception_dialog.dart';
 import 'package:flutter_webapi_first_course/services/auth_service.dart';
+import 'package:http_interceptor/http_interceptor.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -108,6 +110,21 @@ class LoginScreen extends StatelessWidget {
         }
       },
       test: (error) => error is UserNotFoundException,
+    ).catchError((error) {
+      if (context.mounted) {
+        showExceptionDialog(context,
+            content:
+                'The server took too long to respond. Please try again later.');
+      }
+    }, test: (error) => error is TimeoutException).catchError(
+      (error) {
+        if (context.mounted) {
+          showExceptionDialog(context,
+              content:
+                  'It was not possible to connect to the server. Try again later.');
+        }
+      },
+      test: (error) => error is ClientException,
     );
   }
 }
