@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_webapi_first_course/services/http_interceptors.dart';
 import 'package:flutter_webapi_first_course/services/webclient.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
